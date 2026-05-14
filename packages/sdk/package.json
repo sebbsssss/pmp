@@ -1,0 +1,39 @@
+{
+  "name": "@pmp/sdk",
+  "version": "0.1.0-alpha.0",
+  "description": "Reference TypeScript SDK for PMP (Portable Memory Protocol). Tiny wrappers over the four verbs — DISCOVER, RETRIEVE, VERIFY, CONTRIBUTE — plus a client-side hash verifier, LangChain adapter, and cross-provider discovery.",
+  "license": "MIT",
+  "homepage": "https://portablememoryprotocol.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebbsssss/pmp.git",
+    "directory": "packages/sdk"
+  },
+  "keywords": ["pmp", "portable-memory-protocol", "ai", "agents", "memory", "mcp", "x402", "verifiable", "solana"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./langchain": {
+      "types": "./dist/adapters/langchain.d.ts",
+      "default": "./dist/adapters/langchain.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@pmp/tokenization": "0.1.0-alpha.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.11",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

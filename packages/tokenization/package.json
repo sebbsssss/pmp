@@ -1,0 +1,26 @@
+{
+  "name": "@pmp/tokenization",
+  "version": "0.1.0-alpha.0",
+  "description": "Commitment primitives for PMP — deterministic canonical hashing of agent memories, Merkle trees + inclusion proofs over Memory Packs, and the MintClient interface that on-chain implementations conform to.",
+  "license": "MIT",
+  "homepage": "https://portablememoryprotocol.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebbsssss/pmp.git",
+    "directory": "packages/tokenization"
+  },
+  "keywords": ["pmp", "portable-memory-protocol", "merkle", "sha256", "solana", "verifiable"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.11",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
