@@ -1,0 +1,58 @@
+name: conformance
+
+# Runs the @pmp/conformance suite against the Clude staging endpoint on every
+# push to main and every 6 hours. If staging fails conformance, this badge
+# goes red and the maintainers know within hours instead of days.
+#
+# Other PMP providers are welcome to fork this workflow and point it at their
+# own endpoint — that's exactly the value the suite is supposed to deliver.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Every 6 hours
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "PMP provider base URL"
+        required: false
+        default: "https://cludebot-test-preview.up.railway.app"
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install + typecheck conformance
+        working-directory: packages/conformance
+        run: |
+          npm install --no-save @types/node typescript
+          npx tsc -p tsconfig.json
+
+      - name: Run conformance against ${{ github.event.inputs.target_url || 'https://cludebot-test-preview.up.railway.app' }}
+        working-directory: packages/conformance
+        env:
+          PMP_NO_COLOR: "1"
+        run: |
+          TARGET="${{ github.event.inputs.target_url || 'https://cludebot-test-preview.up.railway.app' }}"
+          npx --yes tsx src/index.ts "$TARGET" --json conformance-report.json
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conformance-report
+          path: packages/conformance/conformance-report.json
+          retention-days: 30
