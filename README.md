@@ -1,5 +1,9 @@
 # PMP — Portable Memory Protocol
 
+[![conformance](https://github.com/sebbsssss/pmp/actions/workflows/conformance.yml/badge.svg)](https://github.com/sebbsssss/pmp/actions/workflows/conformance.yml)
+[![spec v0.1](https://img.shields.io/badge/spec-v0.1-blue)](spec/v0.1.md)
+[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 **Open standard for AI agent memory.** Portable across providers, frameworks, and chains.
 
 ```
@@ -78,6 +82,16 @@ Public benchmark: **80.4% on LongMemEval-S**, above the theoretical oracle ceili
 ## Become a provider
 
 Implement the four verbs at `/v1/memories/*` and `/v1/packs/*` per the spec, then open a PR adding your provider to [`registry/providers.json`](registry/providers.json). Submission guidelines are in the registry file itself.
+
+**Prove your implementation is compliant:**
+
+```bash
+npx @pmp/conformance https://your-provider.example
+```
+
+The conformance suite ships in this repo at [`packages/conformance/`](packages/conformance/). It exercises all four v0.1 verbs (plus Pack endpoints if you implement them), validates response shapes against the spec, and emits a machine-parseable JSON report. Zero runtime deps. Run it in CI on every push and your "PMP-compliant" badge stays meaningful.
+
+The reference implementation (Clude) runs the same suite against itself every 6 hours — the badge at the top of this README is its live conformance status.
 
 ## Governance
 
