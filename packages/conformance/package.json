@@ -1,0 +1,23 @@
+{
+  "name": "@pmp/conformance",
+  "version": "0.1.0-alpha.0",
+  "description": "PMP conformance test suite. Point this at any HTTP endpoint claiming to implement PMP v0.1 and it will exercise the four core verbs plus the Pack endpoints and tell you exactly where your implementation diverges from the spec.",
+  "license": "MIT",
+  "bin": {
+    "pmp-conformance": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.11",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
