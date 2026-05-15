@@ -22,9 +22,15 @@
       "default": "./dist/adapters/langchain.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "rm -rf dist && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@pmp/tokenization": "0.1.0-alpha.0"

@@ -12,9 +12,15 @@
   "keywords": ["pmp", "portable-memory-protocol", "merkle", "sha256", "solana", "verifiable"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "rm -rf dist && tsc -p tsconfig.build.json"
   },
   "devDependencies": {
     "@types/node": "^22.19.11",
