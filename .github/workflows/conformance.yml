@@ -25,7 +25,16 @@ on:
 jobs:
   conformance:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: production
+            url: https://clude.io
+          - name: staging
+            url: https://cludebot-test-preview.up.railway.app
+    name: ${{ matrix.target.name }}
 
     steps:
       - uses: actions/checkout@v4
@@ -41,18 +50,19 @@ jobs:
           npm install --no-save @types/node typescript
           npx tsc -p tsconfig.json
 
-      - name: Run conformance against ${{ github.event.inputs.target_url || 'https://cludebot-test-preview.up.railway.app' }}
+      - name: Run conformance against ${{ matrix.target.name }} (${{ matrix.target.url }})
         working-directory: packages/conformance
         env:
           PMP_NO_COLOR: "1"
+          TARGET: ${{ github.event.inputs.target_url || matrix.target.url }}
         run: |
-          TARGET="${{ github.event.inputs.target_url || 'https://cludebot-test-preview.up.railway.app' }}"
+          echo "Target: $TARGET"
           npx --yes tsx src/index.ts "$TARGET" --json conformance-report.json
 
       - name: Upload report artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: conformance-report
+          name: conformance-report-${{ matrix.target.name }}
           path: packages/conformance/conformance-report.json
           retention-days: 30

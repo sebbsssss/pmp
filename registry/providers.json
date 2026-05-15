@@ -2,12 +2,12 @@
   "$schema": "https://portablememoryprotocol.com/registry/v1.json",
   "schema_version": "1",
   "spec_version": "0.1",
-  "updated_at": "2026-05-13",
+  "updated_at": "2026-05-15",
   "description": "Public registry of PMP-compliant providers. v0.1 is a static JSON file; v0.2 will move to an on-chain ENS-style resolver. Submit a PR to add your provider.",
   "providers": [
     {
       "name": "Clude",
-      "endpoint": "https://api.clude.io",
+      "endpoint": "https://clude.io",
       "chain_id": "solana",
       "verbs_supported": ["DISCOVER", "RETRIEVE", "VERIFY", "CONTRIBUTE"],
       "auth": ["privy_jwt", "wallet_signature"],
